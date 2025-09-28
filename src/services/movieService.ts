@@ -20,7 +20,6 @@ const fetchMovies = async (topic: string): Promise<Movie[]> => {
 
   const apiRequest = await axios.get<Movies>(url, options);
 
-  console.log(apiRequest.data.results);
   return apiRequest.data.results;
 };
 

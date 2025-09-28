@@ -9,13 +9,17 @@ function App() {
   const [films, setFilm] = useState<Movie[]>([]);
 
   const onSubmit = async (topic: string) => {
-    const moviesArray = await fetchMovies(topic);
-    if (moviesArray.length === 0) {
-      toast.error('No movies found for your request.');
-      return;
-    }
+    try {
+      const moviesArray = await fetchMovies(topic);
+      if (moviesArray.length === 0) {
+        toast.error('No movies found for your request.');
+        return;
+      }
 
-    setFilm(moviesArray);
+      setFilm(moviesArray);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
