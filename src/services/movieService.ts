@@ -19,8 +19,10 @@ const fetchMovies = async (topic: string): Promise<Movie[]> => {
   const url = `https://api.themoviedb.org/3/search/movie?query=${topic}&include_adult=false&language=en-US&page=1`;
 
   const apiRequest = await axios.get<Movies>(url, options);
-
-  return apiRequest.data.results;
+  const filteredFilms = apiRequest.data.results.filter(
+    (film) => film.backdrop_path
+  );
+  return filteredFilms;
 };
 
 export default fetchMovies;
