@@ -4,7 +4,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import fetchMovies from '../../services/movieService';
 import { type Movie } from '../../types/movie';
 import { useState } from 'react';
-
+import Loader from '../Loader/Loader';
 function App() {
   const [films, setFilm] = useState<Movie[]>([]);
 
@@ -26,6 +26,7 @@ function App() {
     <>
       <Toaster />
       <SearchBar onSubmit={onSubmit} />
+      <Loader />
       <MovieGrid films={films} />
     </>
   );

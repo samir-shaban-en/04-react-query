@@ -20,8 +20,9 @@ const fetchMovies = async (topic: string): Promise<Movie[]> => {
 
   const apiRequest = await axios.get<Movies>(url, options);
   const filteredFilms = apiRequest.data.results.filter(
-    (film) => film.backdrop_path
+    (film) => film.backdrop_path && film.poster_path
   );
+  console.log(filteredFilms);
   return filteredFilms;
 };
 
