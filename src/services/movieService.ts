@@ -9,10 +9,7 @@ const options = {
 };
 
 interface Movies {
-  page: number;
   results: Movie[];
-  total_pages: number;
-  total_results: number;
 }
 
 const fetchMovies = async (topic: string): Promise<Movie[]> => {

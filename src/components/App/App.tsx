@@ -2,15 +2,26 @@ import SearchBar from '../SearchBar/SearchBar';
 import MovieGrid from '../MovieGrid/MovieGrid';
 import Loader from '../Loader/Loader';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
-import toast, { Toaster } from 'react-hot-toast';
+import MovieModal from '../MovieModal/MovieModal';
 import fetchMovies from '../../services/movieService';
+
+import toast, { Toaster } from 'react-hot-toast';
+
 import { type Movie } from '../../types/movie';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 function App() {
   const [films, setFilm] = useState<Movie[]>([]);
   const [loader, setLoader] = useState(false);
   const [error, setError] = useState(false);
+  const [currentFilm, setCurrentFilm] = useState<Movie>({
+    backdrop_path: 'path',
+    title: 'movie-name',
+    overview: 'overview',
+    release_date: 'release_date',
+    vote_average: 0,
+  });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onSubmit = async (topic: string) => {
     try {
@@ -31,14 +42,24 @@ function App() {
       setError(true);
     }
   };
+  const handelClick = (film: Movie): void => {
+    setCurrentFilm(film);
+    setIsModalOpen(true);
+  };
 
+  const onClose = () => {
+    setIsModalOpen(false);
+  };
   return (
     <>
       <Toaster />
       <SearchBar onSubmit={onSubmit} />
       {error && <ErrorMessage />}
       {loader && <Loader />}
-      <MovieGrid films={films} />
+      <MovieGrid films={films} handelClick={handelClick} />
+      {isModalOpen && (
+        <MovieModal onClose={onClose} currentFilm={currentFilm} />
+      )}
     </>
   );
 }
