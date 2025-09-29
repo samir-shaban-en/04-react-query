@@ -42,7 +42,7 @@ function App() {
       setError(true);
     }
   };
-  const handelClick = (film: Movie): void => {
+  const handleClick = (film: Movie): void => {
     setCurrentFilm(film);
     setIsModalOpen(true);
   };
@@ -56,7 +56,7 @@ function App() {
       <SearchBar onSubmit={onSubmit} />
       {error && <ErrorMessage />}
       {loader && <Loader />}
-      <MovieGrid films={films} handelClick={handelClick} />
+      <MovieGrid films={films} handleClick={handleClick} />
       {isModalOpen && (
         <MovieModal onClose={onClose} currentFilm={currentFilm} />
       )}
