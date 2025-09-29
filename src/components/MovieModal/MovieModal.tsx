@@ -8,7 +8,7 @@ interface MovieModalProps {
 }
 
 const MovieModal = ({
-  currentFilm: { backdrop_path, release_date, vote_average, title },
+  currentFilm: { backdrop_path, release_date, vote_average, title, overview },
   onClose,
 }: MovieModalProps) => {
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -51,7 +51,7 @@ const MovieModal = ({
         />
         <div className={css.content}>
           <h2>{title}</h2>
-          <p>movie_overview</p>
+          <p>{overview}</p>
           <p>
             <strong>Release Date:</strong> {release_date}
           </p>
