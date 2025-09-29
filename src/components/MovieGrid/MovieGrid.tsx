@@ -2,14 +2,14 @@ import css from './MovieGrid.module.css';
 import { type Movie } from '../../types/movie';
 interface MovieGridProps {
   films: Movie[];
-  currentFilmClick: ({
+  handelClick: ({
     backdrop_path,
     overview,
     release_date,
     vote_average,
   }: Movie) => void;
 }
-const MovieGrid = ({ films, currentFilmClick }: MovieGridProps) => {
+const MovieGrid = ({ films, handelClick }: MovieGridProps) => {
   return (
     <ul className={css.grid}>
       {films.map(
@@ -26,7 +26,7 @@ const MovieGrid = ({ films, currentFilmClick }: MovieGridProps) => {
             <li
               key={id}
               onClick={() =>
-                currentFilmClick({
+                handelClick({
                   backdrop_path,
                   overview,
                   release_date,
