@@ -14,6 +14,8 @@ function App() {
   const [films, setFilm] = useState<Movie[]>([]);
   const [loader, setLoader] = useState(false);
   const [error, setError] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [currentFilm, setCurrentFilm] = useState<Movie>({
     backdrop_path: 'path',
     title: 'movie-name',
@@ -21,7 +23,6 @@ function App() {
     release_date: 'release_date',
     vote_average: 0,
   });
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onSubmit = async (topic: string) => {
     try {
@@ -42,14 +43,20 @@ function App() {
       setError(true);
     }
   };
+
   const handleClick = (film: Movie): void => {
     setCurrentFilm(film);
+    openModal();
+  };
+
+  const openModal = () => {
     setIsModalOpen(true);
   };
 
-  const onClose = () => {
+  const closeModal = () => {
     setIsModalOpen(false);
   };
+
   return (
     <>
       <Toaster />
@@ -58,7 +65,7 @@ function App() {
       {loader && <Loader />}
       <MovieGrid films={films} handleClick={handleClick} />
       {isModalOpen && (
-        <MovieModal onClose={onClose} currentFilm={currentFilm} />
+        <MovieModal closeModal={closeModal} currentFilm={currentFilm} />
       )}
     </>
   );

@@ -4,22 +4,23 @@ import { type Movie } from '../../types/movie';
 import { useEffect } from 'react';
 interface MovieModalProps {
   currentFilm: Movie;
-  onClose: () => void;
+  closeModal: () => void;
 }
 
 const MovieModal = ({
   currentFilm: { backdrop_path, release_date, vote_average, title, overview },
-  onClose,
+  closeModal,
 }: MovieModalProps) => {
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
-      onClose();
+      closeModal();
     }
   };
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        onClose();
+        closeModal();
       }
     };
 
@@ -30,7 +31,8 @@ const MovieModal = ({
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
     };
-  }, [onClose]);
+  }, [closeModal]);
+
   return createPortal(
     <div
       onClick={handleBackdropClick}
@@ -41,7 +43,7 @@ const MovieModal = ({
         <button
           className={css.closeButton}
           aria-label='Close modal'
-          onClick={onClose}>
+          onClick={closeModal}>
           &times;
         </button>
         <img
