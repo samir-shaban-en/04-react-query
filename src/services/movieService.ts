@@ -22,7 +22,7 @@ const fetchMovies = async (topic: string): Promise<Movie[]> => {
   const filteredFilms = apiRequest.data.results.filter(
     (film) => film.backdrop_path && film.poster_path
   );
-  console.log(filteredFilms);
+
   return filteredFilms;
 };
 
