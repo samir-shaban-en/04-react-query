@@ -3,24 +3,24 @@ import css from './MovieModal.module.css';
 import { type Movie } from '../../types/movie';
 import { useEffect } from 'react';
 interface MovieModalProps {
-  currentFilm: Movie;
-  closeModal: () => void;
+  movie: Movie;
+  onClose: () => void;
 }
 
 const MovieModal = ({
-  currentFilm: { backdrop_path, release_date, vote_average, title, overview },
-  closeModal,
+  movie: { backdrop_path, release_date, vote_average, title, overview },
+  onClose,
 }: MovieModalProps) => {
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
-      closeModal();
+      onClose();
     }
   };
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        closeModal();
+        onClose();
       }
     };
 
@@ -31,7 +31,7 @@ const MovieModal = ({
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
     };
-  }, [closeModal]);
+  }, [onClose]);
 
   return createPortal(
     <div
@@ -43,12 +43,12 @@ const MovieModal = ({
         <button
           className={css.closeButton}
           aria-label='Close modal'
-          onClick={closeModal}>
+          onClick={onClose}>
           &times;
         </button>
         <img
           src={`https://image.tmdb.org/t/p/original/${backdrop_path}`}
-          alt='movie_title'
+          alt={title}
           className={css.image}
         />
         <div className={css.content}>

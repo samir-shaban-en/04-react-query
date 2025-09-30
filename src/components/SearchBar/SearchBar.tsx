@@ -1,12 +1,12 @@
 import styles from './SearchBar.module.css';
 import toast from 'react-hot-toast';
 
-interface formProp {
+interface SearchBarProps {
   onSubmit: (topic: string) => void;
 }
 
-const SearchBar = ({ onSubmit }: formProp) => {
-  const handerSubmit = (formData: FormData) => {
+const SearchBar = ({ onSubmit }: SearchBarProps) => {
+  const handleSubmit = (formData: FormData) => {
     const submitData = formData.get('query') as string;
 
     if (submitData === '') {
@@ -27,7 +27,7 @@ const SearchBar = ({ onSubmit }: formProp) => {
           rel='noopener noreferrer'>
           Powered by TMDB
         </a>
-        <form action={handerSubmit} className={styles.form}>
+        <form action={handleSubmit} className={styles.form}>
           <input
             className={styles.input}
             type='text'

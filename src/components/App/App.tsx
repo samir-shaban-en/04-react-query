@@ -11,18 +11,12 @@ import { type Movie } from '../../types/movie';
 import { useState } from 'react';
 
 function App() {
-  const [films, setFilm] = useState<Movie[]>([]);
+  const [movies, setFilm] = useState<Movie[]>([]);
   const [loader, setLoader] = useState(false);
   const [error, setError] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [currentFilm, setCurrentFilm] = useState<Movie>({
-    backdrop_path: 'path',
-    title: 'movie-name',
-    overview: 'overview',
-    release_date: 'release_date',
-    vote_average: 0,
-  });
+  const [movie, setCurrentFilm] = useState<Movie | null>(null);
 
   const onSubmit = async (topic: string) => {
     try {
@@ -44,8 +38,8 @@ function App() {
     }
   };
 
-  const handleClick = (film: Movie): void => {
-    setCurrentFilm(film);
+  const onSelect = (movie: Movie): void => {
+    setCurrentFilm(movie);
     openModal();
   };
 
@@ -53,8 +47,9 @@ function App() {
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
+  const onClose = () => {
     setIsModalOpen(false);
+    setCurrentFilm(null);
   };
 
   return (
@@ -63,10 +58,8 @@ function App() {
       <SearchBar onSubmit={onSubmit} />
       {error && <ErrorMessage />}
       {loader && <Loader />}
-      <MovieGrid films={films} handleClick={handleClick} />
-      {isModalOpen && (
-        <MovieModal closeModal={closeModal} currentFilm={currentFilm} />
-      )}
+      <MovieGrid movies={movies} onSelect={onSelect} />
+      {movie && <MovieModal onClose={onClose} movie={movie} />}
     </>
   );
 }
