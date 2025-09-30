@@ -14,7 +14,6 @@ function App() {
   const [movies, setFilm] = useState<Movie[]>([]);
   const [loader, setLoader] = useState(false);
   const [error, setError] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [movie, setCurrentFilm] = useState<Movie | null>(null);
 
@@ -40,15 +39,9 @@ function App() {
 
   const onSelect = (movie: Movie): void => {
     setCurrentFilm(movie);
-    openModal();
-  };
-
-  const openModal = () => {
-    setIsModalOpen(true);
   };
 
   const onClose = () => {
-    setIsModalOpen(false);
     setCurrentFilm(null);
   };
 
