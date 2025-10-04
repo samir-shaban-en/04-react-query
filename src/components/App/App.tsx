@@ -18,7 +18,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [topic, setTopic] = useState('');
 
-  const { data, isLoading, isError, isSuccess } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ['articles', topic, currentPage],
     queryFn: () => fetchMovies(topic, currentPage),
     enabled: topic !== '',
